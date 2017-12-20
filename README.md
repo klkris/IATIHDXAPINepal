@@ -1,16 +1,14 @@
 # IATIHDXAPINepal
-## Introduction
-
 Exploratory project to find ways how IATI and HDX data can support humanitarian workers in their decision making during disaster response.
 
-### Prerequisites
+## Prerequisites
 Tested on:
 * Ubuntu Server 16.04
 * Python 3.6 and pip
 * Postgres 9.5
 * Virtualenv 15
 
-### Installing
+## Installation
 Clone this repository
 ```
 git clone https://github.com/d-paulus/IATIHDXAPINepal.git
