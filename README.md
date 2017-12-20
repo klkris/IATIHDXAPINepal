@@ -1,5 +1,5 @@
 # IATIHDXAPINepal
-Exploratory project to find ways how IATI and HDX data can support humanitarian workers in their decision making during disaster response and at the same time provide affeted communities with essential information access.
+Exploratory project to find ways how IATI and HDX data can support humanitarian workers in their decision making during disaster response and at the same time provide affected communities with essential information access.
 
 ## Prerequisites
 Tested on:
