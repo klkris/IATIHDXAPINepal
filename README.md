@@ -16,7 +16,7 @@ Clone this repository
 git clone https://github.com/d-paulus/IATIHDXAPINepal.git
 ```
 
-Create virtual environment within project directory
+Create a virtual environment within the project directory
 ```
 cd IATIHDXAPINepal/ && virtualenv -p python3.6 venv
 ```
@@ -26,22 +26,22 @@ Activate the virtual environment
 source venv/bin/activate
 ```
 
-Install python requirements 
+Install the python requirements 
 ```
 venv/bin/pip3 install -r requirements.txt
 ```
 
-Create Postgres user (use 'iatihdxapi' as password)
+Create a Postgres user (use 'iatihdxapi' as password)
 ```
 sudo -u postgres createuser -P -d iatihdxapi
 ```
 
-Create Postgres database
+Create a Postgres database
 ```
 sudo -u postgres createdb -O iatihdxapi iatihdxapi
 ```
 
-Migrate database
+Migrate the database
 ```
 venv/bin/python3 manage.py migrate
 ```
