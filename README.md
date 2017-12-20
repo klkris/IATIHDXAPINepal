@@ -1,7 +1,4 @@
 # IATIHDXAPINepal
-
-...early testing...
-
 ## Introduction
 
 Exploratory project to find ways how IATI and HDX data can support humanitarian workers in their decision making during disaster response.
@@ -14,7 +11,6 @@ Tested on:
 * Virtualenv 15
 
 ### Installing
-
 Clone this repository
 ```
 git clone https://github.com/d-paulus/IATIHDXAPINepal.git
@@ -64,7 +60,6 @@ localhost:8000/updateshelter
 
 ## Example REST calls
 ### IATI
-
 Get all IATI data
 ```
 localhost:8000/iati
@@ -86,7 +81,6 @@ localhost:8000/iati/?title=UNCERF Multi-year Commitment
 ```
 
 ### HXL
-
 Get all HXL data
 ```
 localhost:8000/hxl
