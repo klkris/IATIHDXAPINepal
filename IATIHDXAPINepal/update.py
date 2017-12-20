@@ -3,12 +3,13 @@ import hxl
 import iati
 import csv
 import requests
+import os.path
 
 
 class UpdateDB():
     
     def updateShelter(self):
-        csvShelterFileLocation = '/Users/dp/Documents/LiClipseWorkspace/IATIHDXAPINepal/data/shelterCluser_NP_simplified_single.csv'
+        csvShelterFileLocation = os.path.dirname(os.path.realpath(__file__)) + '/data/shelterCluser_NP_simplified_single.csv'
         with open(csvShelterFileLocation, 'rt') as csvfile:
             spamreader = csv.reader(csvfile, delimiter=';')
             next(spamreader)
@@ -38,7 +39,7 @@ class UpdateDB():
         return
     
     def updateIATI(self):
-        iatiFileLocation = '/Users/dp/Documents/LiClipseWorkspace/IATIHDXAPINepal/data/iati-datastore_NP_72010_wo_result_query.xml'
+        iatiFileLocation = os.path.dirname(os.path.realpath(__file__)) + '/data/iati-datastore_NP_72010_wo_result_query.xml'
         with open(iatiFileLocation, 'rt', encoding='utf-8') as xml_file_object:
             dataset_as_string = xml_file_object.read()
         dataset = iati.Dataset(dataset_as_string)  
@@ -98,7 +99,7 @@ class UpdateDB():
         return
     
     def updateHXL(self):
-        hxlFileLocation = '/Users/dp/Documents/LiClipseWorkspace/IATIHDXAPINepal/data/hxl_np_population,dead,injured,houses2.csv'
+        hxlFileLocation = os.path.dirname(os.path.realpath(__file__)) + '/data/hxl_np_population,dead,injured,houses2.csv'
         result = hxl.data(hxlFileLocation, allow_local=True)
         for row in result:
             toSave = HXLData()                        
