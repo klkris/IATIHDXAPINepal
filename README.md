@@ -117,7 +117,7 @@ localhost:8000/multitest
 ### Ordering
 HXL and shelter data views can be ordered via ```?ordering```
 #### Example 
-Districts ordered by female fatalities per district
+Districts ordered by female fatalities
 ```
 localhost:8000/hxl/?ordering=-femalesDead
 ```
