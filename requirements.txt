@@ -1,0 +1,7 @@
+requests==2.18.4
+Django==2.0
+pyIATI==0.2.0
+libhxl==4.4
+hxl==0.3
+iati==0.0.1.dev0
+djangorestframework==3.7.3
