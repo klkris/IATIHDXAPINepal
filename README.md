@@ -89,8 +89,8 @@ Get HXL data by district
 localhost:8000/hxl/?district=Kathmandu
 ```
 
-### Shelter data
-Get all shelter data
+### Shelter Cluster data
+Get all shelter cluster data
 ```
 localhost:8000/shelter
 ```
