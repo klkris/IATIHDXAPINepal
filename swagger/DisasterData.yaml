@@ -1,0 +1,236 @@
+swagger: '2.0'
+info:
+  description: >-
+    This is a spec for the use case(s) involving data about areas in Nepal that
+    have been affected by a disaster.
+  version: 1.0.0
+  title: 'Data to Action: Disaster Data'
+host: app-url-here.com
+basePath: /v1
+tags:
+  - name: district
+    description: Information about disaster impacts and relief efforts by district
+schemes:
+  - http
+paths:
+  /district/all:
+    get:
+      tags:
+        - district
+      summary: Get most recent disaster impact information about all districts in Nepal
+      operationId: getAllDistricts
+      produces:
+        - application/json
+      parameters:
+        - name: order_by
+          in: query
+          description: Method of ordering results
+          required: false
+          type: string
+          enum:
+            - female_deaths
+            - homes_damaged
+        - name: show_relief
+          in: query
+          description: Toggle showing/hiding results about relief delivered to district
+          required: true
+          type: boolean
+          default: false
+        - name: show_disaster
+          in: query
+          description: Toggle showing/hiding results about disaster impacts to district
+          required: true
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: Returned all districts
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/District'
+        '400':
+          description: >-
+            Invalid order_by option specified. Please choose female_deaths or
+            homes_damaged.
+  /district/nearby:
+    get:
+      tags:
+        - district
+      summary: >-
+        Get most recent disaster impact information about the districts near the user's current location
+      operationId: getDistrictByLocation
+      produces:
+        - application/json
+      parameters:
+        - name: latitude
+          in: query
+          required: true
+          type: number
+        - name: longitude
+          in: query
+          required: true
+          type: number
+        - name: show_relief
+          in: query
+          description: Toggle showing/hiding results about relief delivered to district
+          required: true
+          type: boolean
+          default: false
+        - name: show_disaster
+          in: query
+          description: Toggle showing/hiding results about disaster impacts to district
+          required: true
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: List of districts close to the user, plus a proximity score showing how close the districts are
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                proximity_score:
+                  type: number
+                district:
+                  $ref: '#/definitions/District'
+        '400':
+          description: Invalid latitude or longitude value
+        '404':
+          description: No district matched the user's current location
+  /district/{id}:
+    get:
+      tags:
+        - district
+      summary: >-
+        Get district information by district ID
+      operationId: getDistrictById
+      produces: 
+        - application/json
+      parameters: 
+        - name: id
+          in: path
+          description: Internal district ID
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: District matching provided ID
+          schema:
+            $ref: '#/definitions/District'
+        '400':
+          description: Invalid district ID provided
+        '404':
+          description: No district found matching that ID
+definitions:
+  District:
+    type: object
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      zone:
+        type: string
+      reg_code:
+        type: string
+      zone_code:
+        type: string
+      ocha_pcode:
+        type: string
+      hlcit_code:
+        type: string
+      impact_most_recent:
+        $ref: '#/definitions/Impact'
+      relief_summary:
+        description: one record per action description
+        type: array
+        items:
+          $ref: '#/definitions/Relief Summary'
+  Impact:
+    type: object
+    properties:
+      datetime:
+        type: string
+        format: datetime
+      total_household:
+        type: integer
+      total_population:
+        type: integer
+      death_female:
+        type: integer
+      death_male:
+        type: integer
+      death_unknown:
+        type: integer
+      total_deaths:
+        type: integer
+      injured_female:
+        type: integer
+      injured_male:
+        type: integer
+      injured_unknown:
+        type: integer
+      total_injured:
+        type: integer
+      govtbuild_damage:
+        type: integer
+      govtbuild_partdamage:
+        type: integer
+      publicbuild_damage:
+        type: integer
+      publicbuild_partdamage:
+        type: integer
+      displaced_females:
+        type: integer
+      displaced_males:
+        type: integer
+  Relief Summary:
+    type: object
+    description: >-
+      Aggregate information about relief provided to a district, at the level of
+      action description (i.e., one record per district per action description)
+    properties:
+      first_started_date:
+        type: string
+        format: datetime
+      last_completed_date:
+        type: string
+        format: datetime
+      action_type:
+        type: string
+      description:
+        type: string
+      event_count:
+        type: integer
+      unit_count:
+        type: integer
+  Relief Action:
+    type: object
+    description: >-
+      This is just a placeholder in case we want to display detailed information
+      about relief actions
+    properties:
+      started:
+        type: string
+        format: datetime
+      completed:
+        type: string
+        format: datetime
+      implementing_agency:
+        type: string
+      sourcing_agency:
+        type: string
+      action_type:
+        type: string
+      description:
+        type: string
+      targeting:
+        type: string
+      households:
+        type: integer
+      units:
+        type: integer
+      cost_per_household:
+        type: number

@@ -1,0 +1,113 @@
+swagger: '2.0'
+info:
+  description: >-
+    This is a spec for the use case(s) involving data about aid organisations in
+    Nepal.
+  version: 1.0.0
+  title: 'Data to Action: Organisation Data'
+host: app-url-here.com
+basePath: /v1
+tags:
+  - name: organisation
+    description: Information about aid organisations
+schemes:
+  - http
+paths:
+  /organisation/all:
+    get:
+      tags:
+      - organisation
+      summary: Get contact info about all organisations in Nepal
+      operationId: getAllOrganisations
+      parameters:
+        - in: query
+          name: org_search
+          description: Search for an organisation by name
+          required: false
+          type: string
+        - in: query
+          name: sector
+          description: Filter organisations by sector ID
+          required: false
+          type: integer
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: All organisations matching search criteria
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Organisation'
+        '404':
+          description: No organisations found matching search criteria
+        '400':
+          description: Invalid search criteria. Make sure sector ID is an integer.
+  /sector/all:
+    get:
+      tags:
+        - organisation
+      summary: Get IATI sectors to use in search interface for organisations
+      operationId: getAllSectors
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: ID and name for all sectors
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Sector'
+definitions:
+  Organisation:
+    type: object
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      description:
+        type: string
+      phone:
+        type: array
+        items:
+          $ref: '#/definitions/Phone'
+      email:
+        type: array
+        items:
+          $ref: '#/definitions/Email'
+      website:
+        type: array
+        items:
+          $ref: '#/definitions/Website'
+      last_updated:
+        type: string
+        format: datetime
+  Phone:
+    type: object
+    properties:
+      description:
+        type: string
+      number:
+        type: string
+  Email:
+    type: object
+    properties:
+      description:
+        type: string
+      address:
+        type: string
+  Website:
+    type: object
+    properties:
+      description:
+        type: string
+      url:
+        type: string
+  Sector:
+    type: object
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
